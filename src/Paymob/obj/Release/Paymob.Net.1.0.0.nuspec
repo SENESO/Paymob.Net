@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Paymob.Net</id>
+    <version>1.0.0</version>
+    <authors>Eslam Ashraf,Github Contributors</authors>
+    <description>The missing .NET SDK for Paymob — Egypt's leading payment gateway. Auth, orders, payment keys, iframe checkout, and HMAC webhook validation.</description>
+    <tags>paymob payments egypt gateway sdk</tags>
+    <repository type="git" commit="630aee328c0155e014aca73189f381e1b2c3a0d6" />
+    <dependencies>
+      <group targetFramework="net8.0">
+        <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="8.0.2" exclude="Build,Analyzers" />
+        <dependency id="System.Text.Json" version="8.0.5" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="8.0.2" exclude="Build,Analyzers" />
+        <dependency id="System.Text.Json" version="8.0.5" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/bin/Release/net8.0/Paymob.dll" target="lib/net8.0/Paymob.dll" />
+    <file src="/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/bin/Release/netstandard2.0/Paymob.dll" target="lib/netstandard2.0/Paymob.dll" />
+  </files>
+</package>

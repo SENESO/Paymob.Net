@@ -1,0 +1,5 @@
+is_global = true
+build_property.RootNamespace = Paymob
+build_property.ProjectDir = /home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 

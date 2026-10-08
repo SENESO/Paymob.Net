@@ -1,0 +1,13 @@
+/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/bin/Release/net8.0/Paymob.deps.json
+/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/bin/Release/net8.0/Paymob.dll
+/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/bin/Release/net8.0/Paymob.pdb
+/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/obj/Release/net8.0/Paymob.csproj.AssemblyReference.cache
+/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/obj/Release/net8.0/Paymob.GeneratedMSBuildEditorConfig.editorconfig
+/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/obj/Release/net8.0/Paymob.AssemblyInfoInputs.cache
+/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/obj/Release/net8.0/Paymob.AssemblyInfo.cs
+/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/obj/Release/net8.0/Paymob.csproj.CoreCompileInputs.cache
+/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/obj/Release/net8.0/Paymob.sourcelink.json
+/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/obj/Release/net8.0/Paymob.dll
+/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/obj/Release/net8.0/refint/Paymob.dll
+/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/obj/Release/net8.0/Paymob.pdb
+/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/obj/Release/net8.0/ref/Paymob.dll

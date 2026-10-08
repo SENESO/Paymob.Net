@@ -6,6 +6,7 @@
     <Authors>Eslam Ashraf;Github Contributors</Authors>
     <PackageTags>paymob;payments;egypt;gateway;sdk</PackageTags>
     <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
+    <PackageId>SENESO.Paymob.Net</PackageId>
     <RootNamespace>Paymob</RootNamespace>
     <LangVersion>latest</LangVersion>
     <Nullable>disable</Nullable>
