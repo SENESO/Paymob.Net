@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Paymob.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+630aee328c0155e014aca73189f381e1b2c3a0d6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5bd8190de78ba948c5f4485b1b0d63f3bdee92e7")]
 [assembly: System.Reflection.AssemblyProductAttribute("Paymob.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Paymob.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

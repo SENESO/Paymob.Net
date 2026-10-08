@@ -401,7 +401,7 @@
           "buildTransitive/net6.0/System.Text.Json.targets": {}
         }
       },
-      "Paymob.Net/1.0.0": {
+      "SENESO.Paymob.Net/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
@@ -409,10 +409,10 @@
           "System.Text.Json": "8.0.5"
         },
         "compile": {
-          "bin/placeholder/Paymob.Net.dll": {}
+          "bin/placeholder/SENESO.Paymob.Net.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Paymob.Net.dll": {}
+          "bin/placeholder/SENESO.Paymob.Net.dll": {}
         }
       }
     }
@@ -1042,7 +1042,7 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Paymob.Net/1.0.0": {
+    "SENESO.Paymob.Net/1.0.0": {
       "type": "project",
       "path": "../../src/Paymob/Paymob.csproj",
       "msbuildProject": "../../src/Paymob/Paymob.csproj"
@@ -1053,7 +1053,7 @@
       "Microsoft.NET.Test.Sdk >= 17.8.0",
       "NUnit >= 3.14.0",
       "NUnit3TestAdapter >= 4.5.0",
-      "Paymob.Net >= 1.0.0"
+      "SENESO.Paymob.Net >= 1.0.0"
     ]
   },
   "packageFolders": {

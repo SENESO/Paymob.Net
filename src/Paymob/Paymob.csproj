@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <Description>The missing .NET SDK for Paymob — Egypt's leading payment gateway. Auth, orders, payment keys, iframe checkout, and HMAC webhook validation.</Description>
@@ -6,10 +6,17 @@
     <Authors>Eslam Ashraf;Github Contributors</Authors>
     <PackageTags>paymob;payments;egypt;gateway;sdk</PackageTags>
     <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
+    <Version>1.0.1</Version>
     <PackageId>SENESO.Paymob.Net</PackageId>
     <RootNamespace>Paymob</RootNamespace>
     <LangVersion>latest</LangVersion>
     <Nullable>disable</Nullable>
+      <RepositoryUrl>https://github.com/SENESO/SENESO.Paymob.Net</RepositoryUrl>
+      <PackageIcon>icon.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/SENESO/SENESO.Paymob.Net</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>NuGet polish release: branded package icon, embedded README, and full repository metadata.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,4 +24,9 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <None Include="../../docs/icon.png" Pack="true" PackagePath="icon.png" />
+    <None Include="../../README.md" Pack="true" PackagePath="README.md" />
+  </ItemGroup>
 </Project>

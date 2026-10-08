@@ -11,7 +11,7 @@
           "Microsoft.NET.Test.Sdk": "17.8.0",
           "NUnit": "3.14.0",
           "NUnit3TestAdapter": "4.5.0",
-          "Paymob.Net": "1.0.0",
+          "SENESO.Paymob.Net": "1.0.0",
           "Paymob": "1.0.0.0"
         },
         "runtime": {
@@ -323,7 +323,7 @@
       "NUnit3TestAdapter/4.5.0": {},
       "System.Reflection.Metadata/1.6.0": {},
       "System.Text.Json/8.0.5": {},
-      "Paymob.Net/1.0.0": {
+      "SENESO.Paymob.Net/1.0.0": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.2",
           "System.Text.Json": "8.0.5"
@@ -442,7 +442,7 @@
       "path": "system.text.json/8.0.5",
       "hashPath": "system.text.json.8.0.5.nupkg.sha512"
     },
-    "Paymob.Net/1.0.0": {
+    "SENESO.Paymob.Net/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

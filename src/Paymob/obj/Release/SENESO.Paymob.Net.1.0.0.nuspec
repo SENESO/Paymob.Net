@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>SENESO.Paymob.Net</id>
+    <version>1.0.0</version>
+    <authors>Eslam Ashraf,Github Contributors</authors>
+    <icon>icon.png</icon>
+    <readme>README.md</readme>
+    <projectUrl>https://github.com/SENESO/SENESO.Paymob.Net</projectUrl>
+    <description>The missing .NET SDK for Paymob — Egypt's leading payment gateway. Auth, orders, payment keys, iframe checkout, and HMAC webhook validation.</description>
+    <releaseNotes>NuGet polish release: branded package icon, embedded README, and full repository metadata.</releaseNotes>
+    <tags>paymob payments egypt gateway sdk</tags>
+    <repository type="git" url="https://github.com/SENESO/SENESO.Paymob.Net" commit="5bd8190de78ba948c5f4485b1b0d63f3bdee92e7" />
+    <dependencies>
+      <group targetFramework="net8.0">
+        <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="8.0.2" exclude="Build,Analyzers" />
+        <dependency id="System.Text.Json" version="8.0.5" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="8.0.2" exclude="Build,Analyzers" />
+        <dependency id="System.Text.Json" version="8.0.5" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/bin/Release/net8.0/Paymob.dll" target="lib/net8.0/Paymob.dll" />
+    <file src="/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/bin/Release/netstandard2.0/Paymob.dll" target="lib/netstandard2.0/Paymob.dll" />
+    <file src="/home/hatch/workspace/github-projects/paymob-dotnet/docs/icon.png" target="icon.png" />
+    <file src="/home/hatch/workspace/github-projects/paymob-dotnet/README.md" target="README.md" />
+  </files>
+</package>

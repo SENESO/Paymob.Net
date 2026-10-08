@@ -694,10 +694,10 @@
     "/home/hatch/.nuget/packages/": {}
   },
   "project": {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "restore": {
       "projectUniqueName": "/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/Paymob.csproj",
-      "projectName": "Paymob.Net",
+      "projectName": "SENESO.Paymob.Net",
       "projectPath": "/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/Paymob.csproj",
       "packagesPath": "/home/hatch/.nuget/packages/",
       "outputPath": "/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/obj/",
