@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>The missing .NET SDK for Paymob — Egypt's leading payment gateway. Auth, orders, payment keys, iframe checkout, and HMAC webhook validation.</Description>
+    <AssemblyTitle>Paymob.Net</AssemblyTitle>
+    <Authors>Eslam Ashraf;Github Contributors</Authors>
+    <PackageTags>paymob;payments;egypt;gateway;sdk</PackageTags>
+    <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
+    <RootNamespace>Paymob</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+
+</Project>
