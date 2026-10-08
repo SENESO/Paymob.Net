@@ -6,13 +6,14 @@
     <Authors>Eslam Ashraf;Github Contributors</Authors>
     <PackageTags>paymob;payments;egypt;gateway;sdk</PackageTags>
     <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <PackageId>SENESO.Paymob.Net</PackageId>
     <RootNamespace>Paymob</RootNamespace>
     <LangVersion>latest</LangVersion>
     <Nullable>disable</Nullable>
       <RepositoryUrl>https://github.com/SENESO/SENESO.Paymob.Net</RepositoryUrl>
-      <PackageIcon>icon.png</PackageIcon>
+      <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>icon.png</PackageIcon>
     <PackageProjectUrl>https://github.com/SENESO/SENESO.Paymob.Net</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.md</PackageReadmeFile>

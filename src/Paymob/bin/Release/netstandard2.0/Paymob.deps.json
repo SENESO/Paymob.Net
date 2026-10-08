@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "Paymob/1.0.1": {
+      "Paymob/1.0.2": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.2",
           "NETStandard.Library": "2.0.3",
@@ -126,7 +126,7 @@
     }
   },
   "libraries": {
-    "Paymob/1.0.1": {
+    "Paymob/1.0.2": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
