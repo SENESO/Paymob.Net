@@ -114,6 +114,150 @@ namespace Paymob
         public string BuildIframeUrl(int iframeId, string paymentToken)
             => $"{_options.BaseUrl.TrimEnd('/')}/api/acceptance/iframes/{iframeId}?payment_token={paymentToken}";
 
+        // ---------- post-payment operations (secret-key auth) ----------
+
+        private void RequireSecretKey()
+        {
+            if (string.IsNullOrWhiteSpace(_options.SecretKey))
+                throw new InvalidOperationException(
+                    "SecretKey is required for this operation. Set PaymobClientOptions.SecretKey.");
+        }
+
+        /// <summary>
+        /// Refund a transaction (full or partial via <paramref name="amountCents"/>).
+        /// A refund is a new child transaction; the parent's later callbacks show it.
+        /// </summary>
+        public Task<bool> RefundAsync(
+            long transactionId, int amountCents, CancellationToken cancellationToken = default)
+        {
+            RequireSecretKey();
+            return PostWithSecretKeyAsync("/api/acceptance/void_refund/refund",
+                new { transaction_id = transactionId, amount_cents = amountCents },
+                cancellationToken);
+        }
+
+        /// <summary>
+        /// Void a transaction before settlement (card payments).
+        /// </summary>
+        public Task<bool> VoidAsync(
+            long transactionId, CancellationToken cancellationToken = default)
+        {
+            RequireSecretKey();
+            return PostWithSecretKeyAsync("/api/acceptance/void_refund/void",
+                new { transaction_id = transactionId },
+                cancellationToken);
+        }
+
+        /// <summary>
+        /// Capture a previously authorized transaction.
+        /// </summary>
+        public Task<bool> CaptureAsync(
+            long transactionId, int amountCents, CancellationToken cancellationToken = default)
+        {
+            RequireSecretKey();
+            return PostWithSecretKeyAsync("/api/acceptance/capture",
+                new { transaction_id = transactionId, amount_cents = amountCents },
+                cancellationToken);
+        }
+
+        /// <summary>
+        /// Look up a transaction by id — the reconciliation fallback when you
+        /// can't rely on the callback alone (stuck "pending" orders, admin tools).
+        /// </summary>
+        public async Task<TransactionDetails> GetTransactionAsync(
+            long transactionId, CancellationToken cancellationToken = default)
+        {
+            var authToken = await GetAuthTokenAsync(cancellationToken).ConfigureAwait(false);
+            var url = $"{_options.BaseUrl.TrimEnd('/')}/api/acceptance/transactions/{transactionId}";
+
+            using (var request = new HttpRequestMessage(HttpMethod.Get, url))
+            {
+                request.Headers.Authorization =
+                    new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authToken);
+
+                using (var response = await _http.SendAsync(request, cancellationToken).ConfigureAwait(false))
+                {
+                    var body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    if (!response.IsSuccessStatusCode)
+                        throw new PaymobApiException((int)response.StatusCode, body);
+                    return JsonSerializer.Deserialize<TransactionDetails>(body, JsonOptions);
+                }
+            }
+        }
+
+        // ---------- Intention API (unified checkout) ----------
+
+        /// <summary>
+        /// Create a payment intention (the new unified-checkout flow).
+        /// Returns a client secret — redirect the customer to
+        /// <see cref="BuildUnifiedCheckoutUrl"/>.
+        /// </summary>
+        public async Task<IntentionResult> CreateIntentionAsync(
+            IntentionRequest request, CancellationToken cancellationToken = default)
+        {
+            RequireSecretKey();
+            if (request == null) throw new ArgumentNullException(nameof(request));
+
+            var url = _options.BaseUrl.TrimEnd('/') + "/v1/intention/";
+            var json = JsonSerializer.Serialize(new
+            {
+                amount = request.Amount,
+                currency = request.Currency,
+                payment_methods = request.PaymentMethods,
+                items = request.Items,
+                billing_data = request.BillingData,
+                customer = request.Customer,
+                notification_url = request.NotificationUrl,
+                redirection_url = request.RedirectionUrl
+            }, JsonOptions);
+
+            using (var httpRequest = new HttpRequestMessage(HttpMethod.Post, url))
+            {
+                httpRequest.Headers.Add("Authorization", "Token " + _options.SecretKey);
+                httpRequest.Content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                using (var response = await _http.SendAsync(httpRequest, cancellationToken).ConfigureAwait(false))
+                {
+                    var body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    if (!response.IsSuccessStatusCode)
+                        throw new PaymobApiException((int)response.StatusCode, body);
+                    return JsonSerializer.Deserialize<IntentionResult>(body, JsonOptions);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Builds the unified-checkout URL for an intention's client secret.
+        /// </summary>
+        public string BuildUnifiedCheckoutUrl(string clientSecret)
+        {
+            if (string.IsNullOrWhiteSpace(_options.PublicKey))
+                throw new InvalidOperationException(
+                    "PublicKey is required. Set PaymobClientOptions.PublicKey.");
+            return $"{_options.BaseUrl.TrimEnd('/')}/unifiedcheckout/?publicKey={_options.PublicKey}&clientSecret={clientSecret}";
+        }
+
+        private async Task<bool> PostWithSecretKeyAsync(
+            string path, object payload, CancellationToken cancellationToken)
+        {
+            var url = _options.BaseUrl.TrimEnd('/') + path;
+            var json = JsonSerializer.Serialize(payload, JsonOptions);
+
+            using (var request = new HttpRequestMessage(HttpMethod.Post, url))
+            {
+                request.Headers.Add("Authorization", "Token " + _options.SecretKey);
+                request.Content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                using (var response = await _http.SendAsync(request, cancellationToken).ConfigureAwait(false))
+                {
+                    var body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    if (!response.IsSuccessStatusCode)
+                        throw new PaymobApiException((int)response.StatusCode, body);
+                    return true;
+                }
+            }
+        }
+
         /// <summary>
         /// Raw POST helper. Protected virtual so tests can intercept without HTTP.
         /// </summary>

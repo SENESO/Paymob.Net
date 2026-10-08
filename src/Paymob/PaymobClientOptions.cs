@@ -7,8 +7,21 @@ namespace Paymob
     {
         /// <summary>
         /// Your Paymob API key (dashboard → Developers → API Keys).
+        /// Used for the classic 3-step flow (auth token → order → payment key).
         /// </summary>
         public string ApiKey { get; set; }
+
+        /// <summary>
+        /// Your Paymob secret key (dashboard → Developers).
+        /// Used as <c>Authorization: Token {secret_key}</c> for post-payment
+        /// operations (refund/void/capture) and the Intention API.
+        /// </summary>
+        public string SecretKey { get; set; }
+
+        /// <summary>
+        /// Your Paymob public key, used to build unified-checkout URLs.
+        /// </summary>
+        public string PublicKey { get; set; }
 
         /// <summary>
         /// HMAC secret used to validate transaction callbacks

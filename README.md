@@ -34,6 +34,57 @@ var checkout = await client.CreateCheckoutAsync(new CheckoutRequest
 return Redirect(checkout.IframeUrl); // customer pays on Paymob's page
 ```
 
+## After the payment
+
+```csharp
+// Refund (full or partial)
+await client.RefundAsync(transactionId: 12345, amountCents: 50000);
+
+// Void before settlement (cards)
+await client.VoidAsync(transactionId: 12345);
+
+// Capture a previously authorized transaction
+await client.CaptureAsync(transactionId: 12345, amountCents: 50000);
+
+// Look up a transaction — the reconciliation fallback when callbacks lag
+var txn = await client.GetTransactionAsync(12345);
+```
+
+These use `Authorization: Token {secret_key}` — set `PaymobClientOptions.SecretKey`.
+
+## Intention API (unified checkout)
+
+The newer flow — one call, then redirect:
+
+```csharp
+var intention = await client.CreateIntentionAsync(new IntentionRequest
+{
+    Amount = 50000,
+    Currency = "EGP",
+    PaymentMethods = new List<int> { 123456 }, // integration ids
+    BillingData = billingData,
+    Customer = new IntentionCustomer { FirstName = "Ahmed", LastName = "Hassan", Email = "ahmed@example.com" },
+    NotificationUrl = "https://yoursite.com/api/paymob/webhook",
+    RedirectionUrl = "https://yoursite.com/payment/done"
+});
+
+return Redirect(client.BuildUnifiedCheckoutUrl(intention.ClientSecret));
+```
+
+## ASP.NET Core DI
+
+```csharp
+services.AddPaymob(options =>
+{
+    options.ApiKey = builder.Configuration["Paymob:ApiKey"];
+    options.SecretKey = builder.Configuration["Paymob:SecretKey"];
+    options.PublicKey = builder.Configuration["Paymob:PublicKey"];
+    options.HmacSecret = builder.Configuration["Paymob:HmacSecret"];
+});
+
+// then inject PaymobClient anywhere
+```
+
 ## Webhook validation
 
 Paymob POSTs transaction callbacks to your notification URL. Always verify the HMAC — otherwise anyone can forge a "payment succeeded" callback:

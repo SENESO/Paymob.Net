@@ -133,4 +133,81 @@ namespace Paymob.Models
         [JsonPropertyName("token")]
         public string Token { get; set; }
     }
+
+    /// <summary>
+    /// Details of a Paymob transaction (inquiry).
+    /// </summary>
+    public class TransactionDetails
+    {
+        [JsonPropertyName("id")]
+        public long Id { get; set; }
+
+        [JsonPropertyName("amount_cents")]
+        public int AmountCents { get; set; }
+
+        [JsonPropertyName("success")]
+        public bool Success { get; set; }
+
+        [JsonPropertyName("pending")]
+        public bool Pending { get; set; }
+
+        [JsonPropertyName("is_refunded")]
+        public bool IsRefunded { get; set; }
+
+        [JsonPropertyName("is_voided")]
+        public bool IsVoided { get; set; }
+
+        [JsonPropertyName("created_at")]
+        public string CreatedAt { get; set; }
+
+        [JsonPropertyName("order")]
+        public CallbackOrder Order { get; set; }
+    }
+
+    /// <summary>
+    /// Request for the new Intention API (unified checkout).
+    /// </summary>
+    public class IntentionRequest
+    {
+        /// <summary>Amount in cents.</summary>
+        public int Amount { get; set; }
+
+        public string Currency { get; set; } = "EGP";
+
+        /// <summary>Integration ids (payment methods) to offer, e.g. card=123456.</summary>
+        public List<int> PaymentMethods { get; set; } = new List<int>();
+
+        public List<OrderItem> Items { get; set; } = new List<OrderItem>();
+
+        public BillingData BillingData { get; set; }
+
+        public IntentionCustomer Customer { get; set; }
+
+        public string NotificationUrl { get; set; }
+
+        public string RedirectionUrl { get; set; }
+    }
+
+    public class IntentionCustomer
+    {
+        [JsonPropertyName("first_name")]
+        public string FirstName { get; set; }
+
+        [JsonPropertyName("last_name")]
+        public string LastName { get; set; }
+
+        [JsonPropertyName("email")]
+        public string Email { get; set; }
+    }
+
+    /// <summary>
+    /// Result of <see cref="PaymobClient.CreateIntentionAsync"/>.
+    /// </summary>
+    public class IntentionResult
+    {
+        public long Id { get; set; }
+
+        [JsonPropertyName("client_secret")]
+        public string ClientSecret { get; set; }
+    }
 }
