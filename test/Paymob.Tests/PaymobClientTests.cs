@@ -171,7 +171,11 @@ namespace Paymob.Tests
                     FirstName = "Ahmed", LastName = "Hassan", Email = "ahmed@test.com"
                 },
                 NotificationUrl = "https://example.com/webhook",
-                RedirectionUrl = "https://example.com/done"
+                RedirectionUrl = "https://example.com/done",
+                Items = new List<IntentionItem>
+                {
+                    new IntentionItem { Name = "Widget", Amount = 25000, Description = "Test", Quantity = 1 }
+                }
             });
 
             Assert.AreEqual("cs_test", result.ClientSecret);
@@ -182,6 +186,9 @@ namespace Paymob.Tests
             using (var doc = JsonDocument.Parse(handler.Requests[0].Body))
             {
                 Assert.AreEqual(25000, doc.RootElement.GetProperty("amount").GetInt32());
+                var item = doc.RootElement.GetProperty("items")[0];
+                Assert.AreEqual(25000, item.GetProperty("amount").GetInt32());
+                Assert.IsFalse(item.TryGetProperty("amount_cents", out _));
             }
         }
 

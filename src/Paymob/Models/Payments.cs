@@ -64,6 +64,25 @@ namespace Paymob.Models
     }
 
     /// <summary>
+    /// Line item for the Intention API — note it uses <c>amount</c>,
+    /// not <c>amount_cents</c> like the classic order API.
+    /// </summary>
+    public class IntentionItem
+    {
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        [JsonPropertyName("amount")]
+        public int Amount { get; set; }
+
+        [JsonPropertyName("description")]
+        public string Description { get; set; }
+
+        [JsonPropertyName("quantity")]
+        public int Quantity { get; set; } = 1;
+    }
+
+    /// <summary>
     /// Everything needed to take a customer to Paymob's checkout in one call.
     /// </summary>
     public class CheckoutRequest
@@ -177,7 +196,7 @@ namespace Paymob.Models
         /// <summary>Integration ids (payment methods) to offer, e.g. card=123456.</summary>
         public List<int> PaymentMethods { get; set; } = new List<int>();
 
-        public List<OrderItem> Items { get; set; } = new List<OrderItem>();
+        public List<IntentionItem> Items { get; set; } = new List<IntentionItem>();
 
         public BillingData BillingData { get; set; }
 

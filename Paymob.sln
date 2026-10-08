@@ -6,6 +6,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paymob", "src\Paymob\Paymob
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paymob.Tests", "test\Paymob.Tests\Paymob.Tests.csproj", "{D2A83F4A-3D71-4A40-AECE-5D304AC109CC}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paymob.IntegrationTests", "test\Paymob.IntegrationTests\Paymob.IntegrationTests.csproj", "{B97A283E-B699-43BD-BDD7-53FA227E388E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,5 +22,9 @@ Global
 		{D2A83F4A-3D71-4A40-AECE-5D304AC109CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2A83F4A-3D71-4A40-AECE-5D304AC109CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2A83F4A-3D71-4A40-AECE-5D304AC109CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B97A283E-B699-43BD-BDD7-53FA227E388E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B97A283E-B699-43BD-BDD7-53FA227E388E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B97A283E-B699-43BD-BDD7-53FA227E388E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B97A283E-B699-43BD-BDD7-53FA227E388E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
