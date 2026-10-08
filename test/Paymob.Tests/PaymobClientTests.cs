@@ -89,10 +89,10 @@ namespace Paymob.Tests
         }
 
         [Test]
-        public void MissingApiKey_Throws()
+        public void MissingApiKey_ThrowsOnAuth()
         {
-            Assert.Throws<ArgumentException>(() =>
-                new PaymobClient(new PaymobClientOptions()));
+            var client = new PaymobClient(new PaymobClientOptions { SecretKey = "sk" });
+            Assert.ThrowsAsync<InvalidOperationException>(() => client.GetAuthTokenAsync());
         }
 
         private static PaymobClientOptions FullOptions() => new PaymobClientOptions

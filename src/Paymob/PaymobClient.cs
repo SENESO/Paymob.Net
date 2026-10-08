@@ -27,8 +27,6 @@ namespace Paymob
         public PaymobClient(PaymobClientOptions options, HttpClient httpClient = null)
         {
             _options = options ?? throw new ArgumentNullException(nameof(options));
-            if (string.IsNullOrWhiteSpace(options.ApiKey))
-                throw new ArgumentException("ApiKey is required.", nameof(options));
 
             _http = httpClient ?? new HttpClient();
         }
@@ -60,6 +58,8 @@ namespace Paymob
         /// </summary>
         public virtual async Task<string> GetAuthTokenAsync(CancellationToken cancellationToken = default)
         {
+            if (string.IsNullOrWhiteSpace(_options.ApiKey))
+                throw new InvalidOperationException("ApiKey is required for the classic auth flow. Set PaymobClientOptions.ApiKey.");
             var res = await PostAsync<AuthTokenResponse>(
                 "/api/auth/tokens", new { api_key = _options.ApiKey }, cancellationToken).ConfigureAwait(false);
             return res.Token;
