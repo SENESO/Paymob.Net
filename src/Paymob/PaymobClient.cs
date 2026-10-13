@@ -62,6 +62,9 @@ namespace Paymob
                 throw new InvalidOperationException("ApiKey is required for the classic auth flow. Set PaymobClientOptions.ApiKey.");
             var res = await PostAsync<AuthTokenResponse>(
                 "/api/auth/tokens", new { api_key = _options.ApiKey }, cancellationToken).ConfigureAwait(false);
+            if (string.IsNullOrWhiteSpace(res?.Token))
+                throw new InvalidOperationException(
+                    "Paymob's auth endpoint returned no token. Check your API key and try again.");
             return res.Token;
         }
 
@@ -112,7 +115,7 @@ namespace Paymob
         /// Builds the iframe checkout URL for a payment token.
         /// </summary>
         public string BuildIframeUrl(int iframeId, string paymentToken)
-            => $"{_options.BaseUrl.TrimEnd('/')}/api/acceptance/iframes/{iframeId}?payment_token={paymentToken}";
+            => $"{_options.BaseUrl.TrimEnd('/')}/api/acceptance/iframes/{iframeId}?payment_token={Uri.EscapeDataString(paymentToken)}";
 
         // ---------- post-payment operations (secret-key auth) ----------
 
@@ -168,7 +171,54 @@ namespace Paymob
             long transactionId, CancellationToken cancellationToken = default)
         {
             var authToken = await GetAuthTokenAsync(cancellationToken).ConfigureAwait(false);
-            var url = $"{_options.BaseUrl.TrimEnd('/')}/api/acceptance/transactions/{transactionId}";
+            return await GetWithAuthTokenAsync<TransactionDetails>(
+                $"/api/acceptance/transactions/{transactionId}", authToken, cancellationToken)
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Look up an order by id — the reconciliation fallback when you only
+        /// stored Paymob's order id and want every transaction attempt tied to
+        /// it (the response includes the nested <c>transactions</c> array).
+        /// </summary>
+        public async Task<OrderDetails> GetOrderAsync(
+            long orderId, CancellationToken cancellationToken = default)
+        {
+            var authToken = await GetAuthTokenAsync(cancellationToken).ConfigureAwait(false);
+            return await GetWithAuthTokenAsync<OrderDetails>(
+                $"/api/ecommerce/orders/{orderId}", authToken, cancellationToken)
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Charge a mobile wallet (Vodafone Cash, Orange Cash, …). Run the
+        /// classic flow first to get a payment key for a wallet integration,
+        /// then call this with the customer's wallet number. Paymob answers
+        /// with the transaction plus a <c>redirect_url</c> — redirect the
+        /// customer there to authorize the payment.
+        /// </summary>
+        public Task<WalletPayResult> PayWithWalletAsync(
+            string paymentToken, string walletNumber, CancellationToken cancellationToken = default)
+        {
+            if (string.IsNullOrWhiteSpace(paymentToken))
+                throw new ArgumentException("Payment token is required.", nameof(paymentToken));
+            if (string.IsNullOrWhiteSpace(walletNumber))
+                throw new ArgumentException("Wallet number is required.", nameof(walletNumber));
+
+            return PostAsync<WalletPayResult>(
+                "/api/acceptance/payments/pay",
+                new
+                {
+                    source = new { identifier = walletNumber, subtype = "WALLET" },
+                    payment_token = paymentToken
+                },
+                cancellationToken);
+        }
+
+        private async Task<T> GetWithAuthTokenAsync<T>(
+            string path, string authToken, CancellationToken cancellationToken)
+        {
+            var url = _options.BaseUrl.TrimEnd('/') + path;
 
             using (var request = new HttpRequestMessage(HttpMethod.Get, url))
             {
@@ -180,7 +230,7 @@ namespace Paymob
                     var body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                     if (!response.IsSuccessStatusCode)
                         throw new PaymobApiException((int)response.StatusCode, body);
-                    return JsonSerializer.Deserialize<TransactionDetails>(body, JsonOptions);
+                    return JsonSerializer.Deserialize<T>(body, JsonOptions);
                 }
             }
         }
@@ -234,7 +284,7 @@ namespace Paymob
             if (string.IsNullOrWhiteSpace(_options.PublicKey))
                 throw new InvalidOperationException(
                     "PublicKey is required. Set PaymobClientOptions.PublicKey.");
-            return $"{_options.BaseUrl.TrimEnd('/')}/unifiedcheckout/?publicKey={_options.PublicKey}&clientSecret={clientSecret}";
+            return $"{_options.BaseUrl.TrimEnd('/')}/unifiedcheckout/?publicKey={Uri.EscapeDataString(_options.PublicKey)}&clientSecret={Uri.EscapeDataString(clientSecret)}";
         }
 
         private async Task<bool> PostWithSecretKeyAsync(

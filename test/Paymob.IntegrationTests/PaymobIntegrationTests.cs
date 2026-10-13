@@ -46,8 +46,8 @@ namespace Paymob.IntegrationTests
 
             var token = await client.GetAuthTokenAsync();
 
-            Assert.IsNotNull(token);
-            Assert.IsNotEmpty(token);
+            Assert.That(token, Is.Not.Null);
+            Assert.That(token, Is.Not.Empty);
         }
 
         [Test]
@@ -79,7 +79,7 @@ namespace Paymob.IntegrationTests
                 }
             });
 
-            Assert.Greater(orderId, 0);
+            Assert.That(orderId, Is.GreaterThan(0));
         }
 
         [Test]
@@ -112,13 +112,11 @@ namespace Paymob.IntegrationTests
                 }
             });
 
-            Assert.Greater(result.PaymobOrderId, 0);
-            Assert.IsNotNull(result.PaymentToken);
-            Assert.IsNotEmpty(result.PaymentToken);
-            StringAssert.StartsWith(
-                "https://accept.paymob.com/api/acceptance/iframes/",
-                result.IframeUrl);
-            StringAssert.Contains(result.PaymentToken, result.IframeUrl);
+            Assert.That(result.PaymobOrderId, Is.GreaterThan(0));
+            Assert.That(result.PaymentToken, Is.Not.Null);
+            Assert.That(result.PaymentToken, Is.Not.Empty);
+            Assert.That(result.IframeUrl, Does.StartWith("https://accept.paymob.com/api/acceptance/iframes/"));
+            Assert.That(result.IframeUrl, Does.Contain(result.PaymentToken));
         }
 
         [Test]
@@ -162,9 +160,9 @@ namespace Paymob.IntegrationTests
                 RedirectionUrl = "https://example.com/paymob/done"
             });
 
-            Assert.Greater(result.Id, 0);
-            Assert.IsNotNull(result.ClientSecret);
-            Assert.IsNotEmpty(result.ClientSecret);
+            Assert.That(result.Id, Is.GreaterThan(0));
+            Assert.That(result.ClientSecret, Is.Not.Null);
+            Assert.That(result.ClientSecret, Is.Not.Empty);
 
             // Building the checkout URL is offline logic, but verifying it
             // against a real client secret proves the pair works together.
@@ -172,9 +170,45 @@ namespace Paymob.IntegrationTests
             if (!string.IsNullOrWhiteSpace(publicKey))
             {
                 var url = client.BuildUnifiedCheckoutUrl(result.ClientSecret);
-                StringAssert.Contains(result.ClientSecret, url);
-                StringAssert.Contains(publicKey, url);
+                Assert.That(url, Does.Contain(result.ClientSecret));
+                Assert.That(url, Does.Contain(publicKey));
             }
+        }
+
+        [Test]
+        public async Task GetOrder_AgainstLiveApi_ReturnsOrder()
+        {
+            RequireEnvVars(ApiKeyVar);
+
+            var client = CreateClient(new PaymobClientOptions
+            {
+                ApiKey = Environment.GetEnvironmentVariable(ApiKeyVar)
+            });
+
+            var orderId = await client.CreateOrderAsync(
+                await client.GetAuthTokenAsync(),
+                new CheckoutRequest
+                {
+                    AmountCents = TestAmountCents,
+                    Currency = "EGP",
+                    MerchantOrderId = NewMerchantOrderId(),
+                    Items = new List<OrderItem>
+                    {
+                        new OrderItem
+                        {
+                            Name = "Integration test item",
+                            Description = "Created by Paymob.IntegrationTests",
+                            AmountCents = TestAmountCents,
+                            Quantity = 1
+                        }
+                    }
+                });
+
+            var order = await client.GetOrderAsync(orderId);
+
+            Assert.That(order.Id, Is.EqualTo(orderId));
+            Assert.That(order.AmountCents, Is.EqualTo(TestAmountCents));
+            Assert.That(order.Transactions, Is.Not.Null);
         }
 
         private static void RequireEnvVars(params string[] names)

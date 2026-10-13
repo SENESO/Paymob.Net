@@ -6,23 +6,23 @@
     <Authors>Eslam Ashraf;Github Contributors</Authors>
     <PackageTags>paymob;payments;egypt;gateway;sdk</PackageTags>
     <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
-    <Version>1.0.2</Version>
+    <Version>1.1.0</Version>
     <PackageId>SENESO.Paymob.Net</PackageId>
     <RootNamespace>Paymob</RootNamespace>
     <LangVersion>latest</LangVersion>
     <Nullable>disable</Nullable>
-      <RepositoryUrl>https://github.com/SENESO/SENESO.Paymob.Net</RepositoryUrl>
+      <RepositoryUrl>https://github.com/SENESO/Paymob.Net</RepositoryUrl>
       <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>icon.png</PackageIcon>
-    <PackageProjectUrl>https://github.com/SENESO/SENESO.Paymob.Net</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/SENESO/Paymob.Net</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>NuGet polish release: branded package icon, embedded README, and full repository metadata.</PackageReleaseNotes>
+    <PackageReleaseNotes>Wallet pay requests (PayWithWalletAsync), order inquiry (GetOrderAsync), URL-encoded checkout tokens, fail-fast auth token validation; dependencies updated (System.Text.Json 10.x, Microsoft.Extensions.DependencyInjection.Abstractions 10.x); tests migrated to NUnit 4.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="8.0.5" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+    <PackageReference Include="System.Text.Json" Version="10.0.13" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.13" />
   </ItemGroup>
 
 

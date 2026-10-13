@@ -50,7 +50,7 @@ namespace Paymob.Tests
         public void ValidCallback_Passes()
         {
             var hmac = PaymobWebhookValidator.ComputeHmac(HmacSecret, Data());
-            Assert.IsTrue(PaymobWebhookValidator.IsValidCallback(HmacSecret, CallbackJson(hmac)));
+            Assert.That(PaymobWebhookValidator.IsValidCallback(HmacSecret, CallbackJson(hmac)), Is.True);
         }
 
         [Test]
@@ -58,20 +58,20 @@ namespace Paymob.Tests
         {
             var hmac = PaymobWebhookValidator.ComputeHmac(HmacSecret, Data());
             var tampered = CallbackJson(hmac).Replace("50000", "50001");
-            Assert.IsFalse(PaymobWebhookValidator.IsValidCallback(HmacSecret, tampered));
+            Assert.That(PaymobWebhookValidator.IsValidCallback(HmacSecret, tampered), Is.False);
         }
 
         [Test]
         public void WrongSecret_Fails()
         {
             var hmac = PaymobWebhookValidator.ComputeHmac(HmacSecret, Data());
-            Assert.IsFalse(PaymobWebhookValidator.IsValidCallback("other-secret", CallbackJson(hmac)));
+            Assert.That(PaymobWebhookValidator.IsValidCallback("other-secret", CallbackJson(hmac)), Is.False);
         }
 
         [Test]
         public void GarbageJson_Fails()
         {
-            Assert.IsFalse(PaymobWebhookValidator.IsValidCallback(HmacSecret, "not json"));
+            Assert.That(PaymobWebhookValidator.IsValidCallback(HmacSecret, "not json"), Is.False);
         }
     }
 }

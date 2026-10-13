@@ -9,6 +9,14 @@
 
 The missing .NET SDK for **Paymob** — Egypt's leading payment gateway.
 
+## Install
+
+```bash
+dotnet add package SENESO.Paymob.Net
+```
+
+## Quick start
+
 ```csharp
 using Paymob;
 using Paymob.Models;
@@ -55,9 +63,30 @@ await client.CaptureAsync(transactionId: 12345, amountCents: 50000);
 
 // Look up a transaction — the reconciliation fallback when callbacks lag
 var txn = await client.GetTransactionAsync(12345);
+
+// Look up an order with every transaction attempt tied to it
+var order = await client.GetOrderAsync(999);
 ```
 
-These use `Authorization: Token {secret_key}` — set `PaymobClientOptions.SecretKey`.
+Refund/void/capture use `Authorization: Token {secret_key}` — set `PaymobClientOptions.SecretKey`.
+
+## Mobile wallets
+
+Charge a wallet (Vodafone Cash, Orange Cash, …) without an iframe. Run the
+classic flow first to get a payment key for a **wallet** integration id, then:
+
+```csharp
+var result = await client.PayWithWalletAsync(
+    paymentToken: checkout.PaymentToken,
+    walletNumber: "01012345678");
+
+// redirect the customer to authorize the payment
+return Redirect(result.RedirectUrl);
+```
+
+`PayWithWalletAsync` POSTs to `/api/acceptance/payments/pay` with
+`source: { identifier, subtype: "WALLET" }` and returns the transaction plus
+`RedirectUrl`.
 
 ## Intention API (unified checkout)
 
@@ -123,9 +152,31 @@ var client = new PaymobClient(options, httpClient);
 
 API errors throw `PaymobApiException` with the HTTP status code and Paymob's response body.
 
+## API reference
+
+| Member | Description |
+|---|---|
+| `CreateCheckoutAsync(request)` | Full classic flow: auth → order → payment key → iframe URL. |
+| `GetAuthTokenAsync()` | Step 1: exchange the API key for a short-lived auth token. |
+| `CreateOrderAsync(authToken, request)` | Step 2: register the order, returns the order id. |
+| `CreatePaymentKeyAsync(authToken, orderId, request)` | Step 3: payment key for the iframe. |
+| `BuildIframeUrl(iframeId, paymentToken)` | Iframe checkout URL (token is URL-encoded). |
+| `PayWithWalletAsync(paymentToken, walletNumber)` | Wallet pay request; returns the transaction + `RedirectUrl`. |
+| `RefundAsync(transactionId, amountCents)` | Full/partial refund (secret-key auth). |
+| `VoidAsync(transactionId)` | Void before settlement (secret-key auth). |
+| `CaptureAsync(transactionId, amountCents)` | Capture an authorized transaction (secret-key auth). |
+| `GetTransactionAsync(transactionId)` | Transaction inquiry (auth-token Bearer). |
+| `GetOrderAsync(orderId)` | Order inquiry with nested `transactions` (auth-token Bearer). |
+| `CreateIntentionAsync(request)` | Intention API; returns id + client secret (secret-key auth). |
+| `BuildUnifiedCheckoutUrl(clientSecret)` | Unified-checkout URL (secret is URL-encoded). |
+| `PaymobWebhookValidator.IsValidCallback(secret, json)` | HMAC-SHA512 validation of transaction callbacks. |
+| `PaymobClientOptions` | `ApiKey`, `SecretKey`, `PublicKey`, `HmacSecret`, `BaseUrl` (default `https://accept.paymob.com`). |
+| `PaymobApiException` | Thrown on non-success responses; carries `StatusCode` + response body. |
+
 ## Targets
 
-`netstandard2.0` and `net8.0`. Only dependency is `System.Text.Json`.
+`netstandard2.0` and `net8.0`. Dependencies: `System.Text.Json` and
+`Microsoft.Extensions.DependencyInjection.Abstractions`.
 
 ## License
 
