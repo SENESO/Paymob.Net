@@ -1,21 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "/home/hatch/workspace/github-projects/paymob-dotnet/test/Paymob.IntegrationTests/Paymob.IntegrationTests.csproj": {}
+    "/home/sandbox/projects/Paymob.Net/test/Paymob.IntegrationTests/Paymob.IntegrationTests.csproj": {}
   },
   "projects": {
-    "/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/Paymob.csproj": {
-      "version": "1.0.2",
+    "/home/sandbox/projects/Paymob.Net/src/Paymob/Paymob.csproj": {
+      "version": "1.1.0",
       "restore": {
-        "projectUniqueName": "/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/Paymob.csproj",
+        "projectUniqueName": "/home/sandbox/projects/Paymob.Net/src/Paymob/Paymob.csproj",
         "projectName": "SENESO.Paymob.Net",
-        "projectPath": "/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/Paymob.csproj",
-        "packagesPath": "/home/hatch/.nuget/packages/",
-        "outputPath": "/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/obj/",
+        "projectPath": "/home/sandbox/projects/Paymob.Net/src/Paymob/Paymob.csproj",
+        "packagesPath": "/home/sandbox/.nuget/packages/",
+        "outputPath": "/home/sandbox/projects/Paymob.Net/src/Paymob/obj/",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "configFilePaths": [
-          "/home/hatch/.nuget/NuGet/NuGet.Config"
+          "/home/sandbox/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0",
@@ -51,11 +51,11 @@
           "dependencies": {
             "Microsoft.Extensions.DependencyInjection.Abstractions": {
               "target": "Package",
-              "version": "[8.0.2, )"
+              "version": "[10.0.13, )"
             },
             "System.Text.Json": {
               "target": "Package",
-              "version": "[8.0.5, )"
+              "version": "[10.0.13, )"
             }
           },
           "imports": [
@@ -74,14 +74,14 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/home/hatch/.dotnet/sdk/8.0.425/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/home/sandbox/dotnet/sdk/8.0.428/PortableRuntimeIdentifierGraph.json"
         },
         "netstandard2.0": {
           "targetAlias": "netstandard2.0",
           "dependencies": {
             "Microsoft.Extensions.DependencyInjection.Abstractions": {
               "target": "Package",
-              "version": "[8.0.2, )"
+              "version": "[10.0.13, )"
             },
             "NETStandard.Library": {
               "suppressParent": "All",
@@ -91,7 +91,7 @@
             },
             "System.Text.Json": {
               "target": "Package",
-              "version": "[8.0.5, )"
+              "version": "[10.0.13, )"
             }
           },
           "imports": [
@@ -105,21 +105,21 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/home/hatch/.dotnet/sdk/8.0.425/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/home/sandbox/dotnet/sdk/8.0.428/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/hatch/workspace/github-projects/paymob-dotnet/test/Paymob.IntegrationTests/Paymob.IntegrationTests.csproj": {
+    "/home/sandbox/projects/Paymob.Net/test/Paymob.IntegrationTests/Paymob.IntegrationTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/hatch/workspace/github-projects/paymob-dotnet/test/Paymob.IntegrationTests/Paymob.IntegrationTests.csproj",
+        "projectUniqueName": "/home/sandbox/projects/Paymob.Net/test/Paymob.IntegrationTests/Paymob.IntegrationTests.csproj",
         "projectName": "Paymob.IntegrationTests",
-        "projectPath": "/home/hatch/workspace/github-projects/paymob-dotnet/test/Paymob.IntegrationTests/Paymob.IntegrationTests.csproj",
-        "packagesPath": "/home/hatch/.nuget/packages/",
-        "outputPath": "/home/hatch/workspace/github-projects/paymob-dotnet/test/Paymob.IntegrationTests/obj/",
+        "projectPath": "/home/sandbox/projects/Paymob.Net/test/Paymob.IntegrationTests/Paymob.IntegrationTests.csproj",
+        "packagesPath": "/home/sandbox/.nuget/packages/",
+        "outputPath": "/home/sandbox/projects/Paymob.Net/test/Paymob.IntegrationTests/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/hatch/.nuget/NuGet/NuGet.Config"
+          "/home/sandbox/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -131,8 +131,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/Paymob.csproj": {
-                "projectPath": "/home/hatch/workspace/github-projects/paymob-dotnet/src/Paymob/Paymob.csproj"
+              "/home/sandbox/projects/Paymob.Net/src/Paymob/Paymob.csproj": {
+                "projectPath": "/home/sandbox/projects/Paymob.Net/src/Paymob/Paymob.csproj"
               }
             }
           }
@@ -154,15 +154,15 @@
           "dependencies": {
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
-              "version": "[17.8.0, )"
+              "version": "[18.11.0, )"
             },
             "NUnit": {
               "target": "Package",
-              "version": "[3.14.0, )"
+              "version": "[4.6.1, )"
             },
             "NUnit3TestAdapter": {
               "target": "Package",
-              "version": "[4.5.0, )"
+              "version": "[6.3.1, )"
             }
           },
           "imports": [
@@ -181,7 +181,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/home/hatch/.dotnet/sdk/8.0.425/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/home/sandbox/dotnet/sdk/8.0.428/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

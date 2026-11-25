@@ -4,6 +4,7 @@
 [![.NET](https://img.shields.io/badge/.NET-netstandard2.0%20%7C%20net8.0-512BD4)](https://dotnet.microsoft.com/)
 [![GitHub stars](https://img.shields.io/github/stars/SENESO/Paymob.Net)](https://github.com/SENESO/Paymob.Net/stargazers)
 [![NuGet](https://img.shields.io/nuget/v/SENESO.Paymob.Net)](https://www.nuget.org/packages/SENESO.Paymob.Net)
+[![CI](https://github.com/SENESO/Paymob.Net/actions/workflows/ci.yml/badge.svg)](https://github.com/SENESO/Paymob.Net/actions/workflows/ci.yml)
 
 # Paymob.Net
 
@@ -172,6 +173,14 @@ API errors throw `PaymobApiException` with the HTTP status code and Paymob's res
 | `PaymobWebhookValidator.IsValidCallback(secret, json)` | HMAC-SHA512 validation of transaction callbacks. |
 | `PaymobClientOptions` | `ApiKey`, `SecretKey`, `PublicKey`, `HmacSecret`, `BaseUrl` (default `https://accept.paymob.com`). |
 | `PaymobApiException` | Thrown on non-success responses; carries `StatusCode` + response body. |
+
+## A real store built on it
+
+[Khan خان](https://github.com/SENESO/khan-store) is a small but real Egyptian
+e-commerce store (ASP.NET Core + React) that uses Paymob.Net for checkout and
+webhook handling - the SDK's reference implementation, exercising checkout
+sessions, HMAC validation and idempotent order updates the way a merchant
+would.
 
 ## Targets
 
